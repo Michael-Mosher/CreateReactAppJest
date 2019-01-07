@@ -16,11 +16,11 @@ test('Link changes the class when hovered', () => {
   expect(component.html()).toEqual(linkOuterHtml);
 
   // manually trigger the callback
-  component.simulate('mouseover');
+  component.simulate('mouseenter');
   expect(component.state('class')).toBe(alternativeClassName);
   expect(component.html()).toEqual(linkAlternativeOuterHtml);
   // re-rendering
-  component.simulate('mouseout')
+  component.simulate('mouseleave')
   expect(component.html()).toEqual(linkOuterHtml);
   // re-rendering
 });

@@ -14,8 +14,25 @@ export default class Link extends React.Component {
     };
   }
 
+  isClassPresent = function(className) {
+    const aClasses = this.state.class.split(' ');
+    return aClasses.indexOf(className) > -1;
+  }
+
+  isValidClassName = function(className){
+    if(className.length<1) return false;
+    return className.search(/\s/)===-1
+  }
+
   _onMouseEnter = () => {
-    this.setState({class: STATUS.HOVERED});
+    this.setState(
+      (state, props) => {
+        console.log(`onMouseEnter the current class ${state.class} and isClassPresent: ${this.isClassPresent(STATUS.NORMAL)}`);
+        const answer = this.isClassPresent(STATUS.NORMAL) ?
+            state.class.replace(/(\s|^)normal(\s|$)/ /*new RegExp(`(\s|^)${STATUS.NOMAL}(\s|$)`)*/, STATUS.HOVERED) :
+            `${state.class} ${STATUS.HOVERED}`;
+        return {class: answer};
+      }  /*{class: STATUS.HOVERED}*/);
   }
 
   _onMouseLeave = () => {
